@@ -18,6 +18,9 @@ You will:
 - Work on tasks in your **own branch**
 - Submit your assignments, labs, and projects via **commits and pull requests**
 
+  Follow this tutorial to instal C/C++ on VScode
+  https://code.visualstudio.com/docs/languages/cpp
+
 ---
 
 ## 🌿 Branch Naming Convention
