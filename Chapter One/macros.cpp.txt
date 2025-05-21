@@ -1,0 +1,43 @@
+#include <iostream>
+
+// Define symbolic constant
+#define PI 3.14159
+
+// Define a feature flag
+#define DEBUG
+
+// Define a version number
+#define VERSION 2
+
+// Define a function-like macro
+#define SQUARE(x) ((x) * (x))
+
+// Undefine a macro (just to show usage)
+#undef PI  // PI is now undefined
+
+int main() {
+    // Check if DEBUG is defined
+    #ifdef DEBUG
+        std::cout << "Debugging mode is ON\n";
+    #endif
+
+    // Check if PI is defined (it was undefined above)
+    #ifndef PI
+        std::cout << "PI is not defined\n";
+    #endif
+
+    // Use #if, #elif, #else, #endif for conditional compilation
+    #if VERSION == 1
+        std::cout << "Running Version 1 features\n";
+    #elif VERSION == 2
+        std::cout << "Running Version 2 features\n";
+    #else
+        std::cout << "Unknown Version\n";
+    #endif
+
+    // Use function-like macro
+    int num = 5;
+    std::cout << "Square of " << num << " is " << SQUARE(num) << std::endl;
+
+    return 0;
+}
