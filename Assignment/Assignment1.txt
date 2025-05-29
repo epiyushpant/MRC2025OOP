@@ -1,0 +1,8 @@
+Write a program to input required fields from user and 
+
+1. Print maximum of two input numbers .
+2. Print area of rectangle
+3. Print Simple Interest.
+4. Check Is Number Prime or Not.
+5. Sum of Numbers 1 to N .
+6. Factorial of N .

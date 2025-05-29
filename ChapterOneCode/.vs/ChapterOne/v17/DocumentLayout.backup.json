@@ -1,0 +1,117 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Structure.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|solutionrelative:Structure.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Prime.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|solutionrelative:Prime.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Operators.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|solutionrelative:Operators.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|C:\\Users\\erpiy\\source\\repos\\ChapterOne\\MaxNumber.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|solutionrelative:MaxNumber.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|C:\\Users\\erpiy\\source\\repos\\ChapterOne\\InputAndTypeConversion.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|solutionrelative:InputAndTypeConversion.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Factorial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BB784FF7-7C0A-4EE3-ABA5-5CFCA2353272}|ChapterOne.vcxproj|solutionrelative:Factorial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Structure.cpp",
+              "DocumentMoniker": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Structure.cpp",
+              "RelativeDocumentMoniker": "Structure.cpp",
+              "ToolTip": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Structure.cpp",
+              "RelativeToolTip": "Structure.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T00:28:47.964Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Prime.cpp",
+              "DocumentMoniker": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Prime.cpp",
+              "RelativeDocumentMoniker": "Prime.cpp",
+              "ToolTip": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Prime.cpp",
+              "RelativeToolTip": "Prime.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAIwBgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T00:28:43.428Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Operators.cpp",
+              "DocumentMoniker": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Operators.cpp",
+              "RelativeDocumentMoniker": "Operators.cpp",
+              "ToolTip": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Operators.cpp",
+              "RelativeToolTip": "Operators.cpp",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T00:28:37.45Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "InputAndTypeConversion.cpp",
+              "DocumentMoniker": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\InputAndTypeConversion.cpp",
+              "RelativeDocumentMoniker": "InputAndTypeConversion.cpp",
+              "ToolTip": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\InputAndTypeConversion.cpp",
+              "RelativeToolTip": "InputAndTypeConversion.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T00:28:27.967Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MaxNumber.cpp",
+              "DocumentMoniker": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\MaxNumber.cpp",
+              "RelativeDocumentMoniker": "MaxNumber.cpp",
+              "ToolTip": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\MaxNumber.cpp",
+              "RelativeToolTip": "MaxNumber.cpp",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAEEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T00:28:18.249Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Factorial.cpp",
+              "DocumentMoniker": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Factorial.cpp",
+              "RelativeDocumentMoniker": "Factorial.cpp",
+              "ToolTip": "C:\\Users\\erpiy\\source\\repos\\ChapterOne\\Factorial.cpp",
+              "RelativeToolTip": "Factorial.cpp",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-28T00:28:07.864Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
