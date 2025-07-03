@@ -1,0 +1,5 @@
+# Ignore compiled object files
+*.obj
+
+# Ignore executable files
+*.exe
