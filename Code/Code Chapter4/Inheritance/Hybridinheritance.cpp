@@ -34,7 +34,11 @@ int main() {
     TechLead tl;
 
     //t1.showDetails(); // This will cause ambiguity
+<<<<<<< HEAD
    //Diamond Problem: which showDetails() to call?
+=======
+    //Diamond Problem: which showDetails() to call?
+>>>>>>> d7711ef... Add code and slide upto chapter 4
     tl.Manager::showDetails();
     tl.Engineer::showDetails();
 

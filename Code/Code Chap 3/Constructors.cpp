@@ -35,7 +35,11 @@ public:
         cout << "Brand: " << brand << ", Model: " << model << endl;
     }
 
+<<<<<<< HEAD
     friend void showBrand(const Car &c);
+=======
+    friend void showBrand(const Car& c);
+>>>>>>> d7711ef... Add code and slide upto chapter 4
 };
 
 // Initialize static member

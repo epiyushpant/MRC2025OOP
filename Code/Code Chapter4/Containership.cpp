@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+<<<<<<< HEAD
 // Contained class (part)
 class Engine {
 public:
@@ -44,3 +45,32 @@ A Car has an Engine
 A Person has a Heart
 
 */
+=======
+class first {
+public:
+    void showf()
+    {
+        cout << "Hello from first class\n";
+    }
+};
+
+// Container class
+class second {
+    // creating object of first
+    first f;
+
+public:
+    // constructor
+    second()
+    {
+        // calling function of first class
+        f.showf();
+    }
+};
+
+int main()
+{
+    // creating object of second
+    second s;
+}
+>>>>>>> d7711ef... Add code and slide upto chapter 4
