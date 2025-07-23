@@ -17,7 +17,8 @@ public:
 
 class Doctor {
 public:
-    void checkPatient(Patient p) {
+
+    void checkPatient(Patient &p) {
         cout << "Doctor checking patient report:" << endl;
         cout << "Blood Pressure: " << p.bloodPressure << endl;
         cout << "Sugar Level: " << p.sugarLevel << endl;

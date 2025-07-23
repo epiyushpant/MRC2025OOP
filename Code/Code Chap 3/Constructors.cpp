@@ -4,86 +4,60 @@ using namespace std;
 class Car {
 private:
     string brand;
-    int year;
-
-protected:
-    string engineNumber;
+    string model;
 
 public:
-    static int numberOfCars;
+    static int count;
 
-    // Default constructor
+    // Default constructor 
     Car() {
         brand = "Unknown";
-        year = 0;
-        engineNumber = "N/A";
-        numberOfCars++;
+        model = "Generic";
+        count++;
     }
 
-    // Parameterized constructor
-    Car(string b, int y, string e) {
+    // Parameterized constructor 
+    Car(string b, string m) {
         brand = b;
-        year = y;
-        engineNumber = e;
-        numberOfCars++;
+        model = m;
+        count++;
     }
 
     // Copy constructor
-    Car(const Car &c) {
-        brand = c.brand;
-        year = c.year;
-        engineNumber = c.engineNumber;
-        numberOfCars++;
+    Car(const Car& other) {
+        brand = other.brand;
+        model = other.model;
+        count++;  // Treat copied car as a new car for count
+        cout << "[Copy Constructor Called]\n";
     }
 
-    // Getter and Setter for brand
-    void setBrand(string b) { brand = b; }
-    string getBrand() { return brand; }
+    void display() const {
+        cout << "Brand: " << brand << ", Model: " << model << endl;
+    }
 
-    // Getter and Setter for year
-    void setYear(int y) { year = y; }
-    int getYear() { return year; }
-
-    // Getter and Setter for engineNumber
-    void setEngineNumber(string e) { engineNumber = e; }
-    string getEngineNumber() { return engineNumber; }
-
-    // Static function to get number of cars
-    static int getNumberOfCars() { return numberOfCars; }
-
-    // Friend function declaration
-    friend void compareCars(Car c1, Car c2);
+    friend void showBrand(const Car& c);
 };
 
 // Initialize static member
-int Car::numberOfCars = 0;
+int Car::count = 0;
 
 // Friend function definition
-void compareCars(Car c1, Car c2) {
-    if (c1.year < c2.year)
-        cout << c1.brand << " is older than " << c2.brand << endl;
-    else if (c1.year > c2.year)
-        cout << c2.brand << " is older than " << c1.brand << endl;
-    else
-        cout << "Both cars are from the same year." << endl;
+void showBrand(const Car& c) {
+    cout << "[Friend] Brand is: " << c.brand << endl;
 }
 
 int main() {
-    Car car1;  // Default constructor
-    Car car2("Toyota", 2010, "ENG12345");  // Parameterized constructor
-    Car car3 = car2;  // Copy constructor
+    Car c1;
+    Car c2("Hyundai", "Elantra");
 
-    car1.setBrand("Honda");
-    car1.setYear(2005);
-    car1.setEngineNumber("ENG54321");
+    Car c3 = c2;  // Calls the copy constructor
 
-    cout << "Car1: " << car1.getBrand() << ", " << car1.getYear() << ", " << car1.getEngineNumber() << endl;
-    cout << "Car2: " << car2.getBrand() << ", " << car2.getYear() << ", " << car2.getEngineNumber() << endl;
-    cout << "Car3: " << car3.getBrand() << ", " << car3.getYear() << ", " << car3.getEngineNumber() << endl;
+    c1.display();
+    c2.display();
+    c3.display();
 
-    cout << "Total cars created: " << Car::getNumberOfCars() << endl;
+    showBrand(c2);
 
-    compareCars(car1, car2);
-
+    cout << "Total cars created: " << Car::count << endl;
     return 0;
 }
