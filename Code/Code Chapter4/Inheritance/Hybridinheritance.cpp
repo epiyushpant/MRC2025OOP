@@ -34,7 +34,7 @@ int main() {
     TechLead tl;
 
     //t1.showDetails(); // This will cause ambiguity
-    //Diamond Problem: which showDetails() to call?
+   //Diamond Problem: which showDetails() to call?
     tl.Manager::showDetails();
     tl.Engineer::showDetails();
 

@@ -35,7 +35,7 @@ public:
         cout << "Brand: " << brand << ", Model: " << model << endl;
     }
 
-    friend void showBrand(const Car& c);
+    friend void showBrand(const Car &c);
 };
 
 // Initialize static member

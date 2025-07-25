@@ -1,30 +1,46 @@
 #include <iostream>
 using namespace std;
 
-class first {
+// Contained class (part)
+class Engine {
 public:
-    void showf()
-    {
-        cout << "Hello from first class\n";
+    void start() {
+        cout << "Engine started..." << endl;
     }
 };
 
-// Container class
-class second {
-    // creating object of first
-    first f;
+// Container class (whole)
+class Car {
+private:
+    Engine engine;  // Car contains an Engine  (car has ans engine)
 
 public:
-    // constructor
-    second()
-    {
-        // calling function of first class
-        f.showf();
+    Car() {
+        cout << "Car is being constructed." << endl;
+        engine.start();  // Using Engine functionality
+    }
+
+    void drive() {
+        cout << "Car is now driving." << endl;
     }
 };
 
-int main()
-{
-    // creating object of second
-    second s;
+int main() {
+    Car myCar;
+    myCar.drive();
+    return 0;
 }
+
+
+/* 
+Inheritance means one class is a specialized version of another.
+Relationship: “is-a”
+A Dog is an Animal
+A Manager is an Employee
+
+Containership means one class contains an object of another class.
+Relationship: “has-a”
+A Car has an Engine
+A Person has a Heart
+
+*/

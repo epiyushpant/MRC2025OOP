@@ -34,7 +34,7 @@ public:
 int main() {
     TechLead tl;
 
-    tl.showDetails();     // ✅ No ambiguity now
+    tl.showDetails();     //  No ambiguity now
     tl.manageTeam();
     tl.writeCode();
     tl.leadProject();

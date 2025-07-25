@@ -1,28 +1,43 @@
-//Abstract class in c++ 
-
 #include <iostream>
 using namespace std;
-class AbstractClass {
-public:
-    virtual void show() = 0; // Pure virtual function
-};  
 
-class ConcreteClass : public AbstractClass {
+// Abstract class
+class Document {
 public:
-    void show() override { // Implementing the pure virtual function
-        cout << "Concrete class show function called." << endl;
+    virtual void open() = 0; // Pure virtual function
+};
+
+// Concrete class: PDF file
+class PDFDocument : public Document {
+public:
+    void open() override {
+        cout << "Opening PDF document..." << endl;
+    }
+};
+
+// Concrete class: Word file
+class WordDocument : public Document {
+public:
+    void open() override {
+        cout << "Opening Word document..." << endl;
     }
 };
 
 int main() {
-    AbstractClass* obj; // Abstract class pointer
-    ConcreteClass concreteObj; // Concrete class object
-    obj = &concreteObj; // Pointing to concrete class object
+    Document* doc;
 
-    obj->show(); // Calls the implemented pure virtual function in ConcreteClass
+    PDFDocument pdf;
+    WordDocument word;
+
+    doc = &pdf;
+    doc->open();  // Output: Opening PDF document...
+
+    doc = &word;
+    doc->open();  // Output: Opening Word document...
 
     return 0;
 }
+
 // Output:
 // Concrete class show function called.
 // This code demonstrates the use of an abstract class in C++ with a pure virtual function.
@@ -46,5 +61,11 @@ int main() {
 | Used for               | Interface design and enforcing derived behavior |
 | Must be inherited      | To provide real functionality                   |
 
+
+
+A concrete class is a class that:
+Can be instantiated (you can create objects of it).
+Provides implementations for all its functions, including any abstract (pure virtual) functions it inherits.
+Does not have any pure virtual functions itself.
 */
 

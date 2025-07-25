@@ -15,13 +15,18 @@ public:
 };  
 
 int main() {
-    Base* b;           // Base class pointer
-    Derived d;        // Derived class object
-    b = &d;           // Base class pointer pointing to derived class object
+    Base b;       // Base class object
+    b.show();     // Calls Base::show()
 
-    b->show();        // Calls the overridden function in Derived class
+    Derived d;    // Derived class object
+    d.show();     // Calls Derived::show()
 
-    return 0;
+    Base* ptr;    // Pointer of Base class type
+    ptr = &d;     // Base class pointer pointing to Derived class object
+
+    ptr->show();  // Calls Derived::show() because show() is virtual
+                  // This is runtime polymorphism in action
+
 }
 
 // Output:
