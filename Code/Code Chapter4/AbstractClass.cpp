@@ -7,6 +7,8 @@ public:
     virtual void show() = 0; // Pure virtual function
 };  
 
+//add something 
+
 class ConcreteClass : public AbstractClass {
 public:
     void show() override { // Implementing the pure virtual function
