@@ -31,7 +31,6 @@ int main() {
 // It is a key feature of polymorphism in object-oriented programming, allowing for dynamic binding at runtime.
 // Method overriding is used to achieve runtime polymorphism, where the function to be called is determined at runtime based on the type of the object pointed to by the base class pointer.
 
-//real life example
 // In a real-world scenario, method overriding can be used in a graphics application where you have
 // a base class `Shape` with a method `draw()`. Different derived classes like `Circle`, `Square`, and `Triangle` can override the `draw()` method to provide their specific drawing logic. This allows the application to call `draw()` on a `Shape` pointer, and the correct drawing method will be executed based on the actual object type at runtime.
 // This is useful for creating flexible and extensible code that can handle new shapes without modifying existing code, adhering to the Open/Closed Principle of object-oriented design.

@@ -26,6 +26,7 @@ int main() {
 // Output:
 // Concrete class show function called.
 // This code demonstrates the use of an abstract class in C++ with a pure virtual function.
+// added new line 
 
 
 //An abstract class in C++ is a class that cannot be instantiated directly and is designed to be inherited by other classes.
