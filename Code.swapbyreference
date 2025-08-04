@@ -1,0 +1,20 @@
+//swaping value by reference.
+#include<iostream>
+using namespace std;
+void swapbyreference( int &p ,int &q) {
+int temp=a;
+        a=b;
+        b=temp;
+cout<<"value of w after swapping is  "<<p<<endl<<"Value of x after swapping is  <<q<<endl;
+}
+int main () 
+{
+int w ,x;
+cout<<"Enter value of w"<<endl;
+cin>>w;
+cout<<"Enter value of x"<<endl;
+cin>>x;
+cout<<"value of w before swapping is  "<<w<<endl<<"Value of x before swapping is  <<x<<endl;
+swapbyreference(w,x);
+return 0;
+}
