@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+
+// First part of namespace
+namespace Tools {
+    void hammer() {
+        cout << "Hammering..." << endl;
+    }
+}
+
+// Second part added later
+namespace Tools {
+    void saw() {
+        cout << "Sawing..." << endl;
+    }
+}
+
+int main() {
+    Tools::hammer();
+    Tools::saw();
+    return 0;
+}

@@ -9,14 +9,14 @@ public:
 };
 
 // Virtual inheritance avoids duplicate Employee base
-class Manager : virtual public Employee {
+class Manager : virtual  public Employee {
 public:
     void manageTeam() {
         cout << "Managing team..." << endl;
     }
 };
 
-class Engineer : virtual public Employee {
+class Engineer :  virtual public Employee {
 public:
     void writeCode() {
         cout << "Writing code..." << endl;
