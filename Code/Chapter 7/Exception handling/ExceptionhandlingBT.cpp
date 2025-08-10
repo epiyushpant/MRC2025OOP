@@ -1,6 +1,7 @@
 /*
-In the context of exception handling, basic types (also called primitive types) refer to the fundamental data types 
-built into the C++ language, such as:
+
+In the context of exception handling, basic types (also called primitive types) refer to the
+fundamental data types built into the C++ language, such as:
 
 int (integer numbers)
 char (characters)
@@ -30,18 +31,23 @@ Allows catching exceptions by type and acting accordingly.
 using namespace std;
 
 double divide(int numerator, int denominator) {
-    if (denominator == 0)
-        throw 0;  // throw int exception for division by zero
-    return static_cast<double>(numerator) / denominator;
+    if (denominator == 0){
+        throw 0; // throw int exception for division by zero
+      } 
+      else
+      {     
+        return static_cast<double>(numerator) / denominator;
+      }
 }
+
 
 int main() {
     try {
         cout << divide(10, 2) << endl;
         cout << divide(10, 0) << endl;  // This will throw
     }
-    catch (int) {
-        cout << "Error: Division by zero!" << endl;
+    catch (int e) {
+        cout << "Error: invalid!"  << e << endl;
     }
     return 0;
 }

@@ -6,7 +6,7 @@ int main() {
     int b;
 
     // Prefix increment
-    b = ++a;  // a is incremented first, then assigned to b
+    b= ++a;  // a is incremented first, then assigned to b
     cout << "After prefix increment (++a):" << endl;
     cout << "a = " << a << ", b = " << b << endl;
 

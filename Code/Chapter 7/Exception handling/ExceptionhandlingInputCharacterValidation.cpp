@@ -3,7 +3,7 @@ using namespace std;
 
 void checkCharInput(char ch) {
     if (ch != 'Y' && ch != 'N')
-        throw ch;  // throw char exception if input is invalid
+        throw "error";  // throw char exception if input is invalid
     cout << "Input accepted: " << ch << endl;
 }
 
@@ -12,7 +12,7 @@ int main() {
         checkCharInput('Y');
         checkCharInput('A');  // This will throw
     }
-    catch (char invalidChar) {
+    catch (char* invalidChar) {
         cout << "Invalid character input: " << invalidChar << endl;
     }
     return 0;
