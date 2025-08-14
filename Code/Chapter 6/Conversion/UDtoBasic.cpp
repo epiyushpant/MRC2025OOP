@@ -2,7 +2,6 @@
 /*
 
 In user-defined to basic type conversion, a class object is converted into a built-in (basic) data type like int, float, double, char, etc.
-
 This is achieved by defining a type conversion function inside the class using the following syntax:
 
  Syntax:

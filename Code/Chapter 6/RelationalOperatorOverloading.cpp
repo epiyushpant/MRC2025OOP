@@ -18,6 +18,8 @@ public:
     double getSalary() const { return salary; }
 
     // Overload relational operators based on salary
+    // emp1 >> emp2 
+    //emp1 calls operator> and emp2 is passed as an argument
     bool operator>(const Employee& e) const {
         return salary > e.salary;
     }
@@ -31,15 +33,17 @@ public:
     }
 
     bool operator!=(const Employee& e) const {
-        return !(*this == e);
+        //return !(*this == e);
+        //return !(name == e.name && salary == e.salary);
+        return salary != e.salary;
     }
 
     bool operator>=(const Employee& e) const {
-        return !(*this < e);
+        return salary >= e.salary;
     }
 
     bool operator<=(const Employee& e) const {
-        return !(*this > e);
+        return salary <= e.salary;
     }
 
     // Display function

@@ -15,23 +15,24 @@ and sometimes derive from std::exception.
 #include <stdexcept>
 using namespace std;
 
-class DivisionByZeroException : public exception {
+class InvalidOperation : public exception {
 public:
     const char* what() const noexcept override {
-        return "Error: Division by zero!";
+        return "Error: Invalid operation!";
     }
 };
 
 double divide(int a, int b) {
     if (b == 0)
-        throw DivisionByZeroException();
+        throw InvalidOperation();
     return static_cast<double>(a) / b;
 }
 
 int main() {
     try {
+        cout << divide(10, 2) << endl;
         cout << divide(10, 0) << endl;
-    } catch (const DivisionByZeroException& e) {
+    } catch (const InvalidOperation& e) {
         cout << e.what() << endl;
     }
     return 0;

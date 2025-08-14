@@ -3,7 +3,6 @@
 //This enables objects of these classes to participate in arithmetic expressions similarly to fundamental data types.
 
 
-
 #include <iostream>
 using namespace std;
 
@@ -16,6 +15,8 @@ public:
     Complex(double r = 0, double i = 0) : real(r), imag(i) {}
 
     // Addition: (a + bi) + (c + di) = (a+c) + (b+d)i
+    //a + b → a.operator+(b)
+
     Complex operator+(const Complex& c) const {
         return Complex(real + c.real, imag + c.imag);
     }

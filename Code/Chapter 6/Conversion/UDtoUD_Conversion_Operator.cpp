@@ -1,4 +1,7 @@
 //Using conversion operator to convert Fahrenheit to Celsius
+// Approach 2 conversion operator
+// This approach uses a conversion operator in the source class to convert from one user-defined type to
+//A conversion operator in the source class
 
 #include <iostream>
 using namespace std;
@@ -24,7 +27,7 @@ public:
         temp = t;
     }
 
-    // Conversion operator: Fahrenheit -> Celsius
+    // Conversion operator: Fahrenheit -> Celsius // in source class means in ferhenhite class 
     operator Celsius() {
         float c = (temp - 32) * 5.0 / 9;
         return Celsius(c);

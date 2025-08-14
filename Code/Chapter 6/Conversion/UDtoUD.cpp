@@ -11,10 +11,17 @@ Approach                     Description                                        
 Conversion Constructor: 	Constructor that takes an object of another class	Target class
 Conversion Operator: 	    Operator that returns another user-defined object	Source class
 
+
+
+Approach 1: Conversion Constructor
+This approach uses a constructor in the target class to convert from one user-defined type to another
+Rectangle to Square conversion example
+Sorce : Rectangle class 
+Target : Square Calss
+Put the conversion constructor in the Square class : Rectangle class and call the getSide() method to get the smaller side of the rectangle 
+
 */ 
 
-//Approach 1: Conversion Constructor
-// This approach uses a constructor in the target class to convert from one user-defined type to another
 #include <iostream>
 using namespace std;
 
@@ -34,19 +41,23 @@ public:
     int getSide() {
         return (length < breadth) ? length : breadth;
     }
+
 };
 
 class Square {
 private:
     int side;
+    int area;
 public:
     // Conversion constructor: Rectangle -> Square
     Square(Rectangle r) {
         side = r.getSide();  // choose smaller side
+        area = r.area(); // get the area of the rectangle
     }
 
-    void display() {
-        cout << "Square with side: " << side << endl;
+    void display() const {
+        cout << "Square with side: " << side 
+             << " and area: " << area << endl;
     }
 };
 
