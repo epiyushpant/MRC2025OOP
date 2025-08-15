@@ -36,8 +36,11 @@ public:
 };
 int main() {
     Person p1; // Calls default constructor
+    
     Person p2("Alice", 30); // Calls parameterized constructor
-    Person p3 = p2; // Calls copy constructor   
+    
+    Person p3 = p2; // Calls copy constructor 
+      
     cout << "Person 1: ";
     p1.display();
     cout << "Person 2: ";

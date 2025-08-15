@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "namespaceextendcpp": "cpp",
+        "xstring": "cpp",
+        "stdexcept": "cpp"
+    }
+}
