@@ -52,7 +52,7 @@ public:
     // Conversion constructor: Rectangle -> Square
     Square(Rectangle r) {
         side = r.getSide();  // choose smaller side
-        area = r.area(); // get the area of the rectangle
+        //area = r.area(); // get the area of the rectangle
     }
 
     void display() const {

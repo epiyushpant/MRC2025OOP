@@ -2,6 +2,8 @@
     "files.associations": {
         "namespaceextendcpp": "cpp",
         "xstring": "cpp",
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "iostream": "cpp",
+        "iosfwd": "cpp"
     }
 }
