@@ -1,0 +1,6 @@
+https://git-scm.com/
+https://github.com/epiyushpant/OOPWithCPP
+1st Homework (June 5, 2026)
+--------------------------
+1. Read Chapter one of OOP in C++ Pearson book .
+2. Complete page 25,26,27.
