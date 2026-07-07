@@ -1,18 +1,30 @@
 #include <iostream>
 using namespace std;
 
-int main() {
-    int x = 10;
-    int* ptr = &x;  // Pointer stores the address of x
+// int main() {
+//     int x = 10;
+//     int* ptr = &x;  // Pointer stores the address of x
 
-    cout << "Value of x: " << x << endl;          // 10
-    cout << "Address of x: " << &x << endl;       // e.g., 0x61ff08
-    cout << "Value of ptr (address): " << ptr << endl;  // same as &x
-    cout << "Value at address (dereferencing): " << *ptr << endl;  // 10
+//     cout << "Value of x: " << x << endl;          // 10
+//     cout << "Address of x: " << &x << endl;       // e.g., 0x61ff08
+//     cout << "Value of ptr (address): " << ptr << endl;  // same as &x
+//     cout << "Value at address (dereferencing): " << *ptr << endl;  // 10
 
-    return 0;
+//     return 0;
+// }
+
+
+int main()
+{
+    int a=5;
+    int *ppt = &a;
+    cout<<"The value of a:"<<a<<endl; //5
+    cout<<"The value of a:"<<&a<<endl; //address 0x70ff1c
+    cout<<"The value of a:"<<ppt<<endl; //address 
+    cout<<"The value of a:"<<&ppt<<endl; //assress
+    cout<<"The value of a:"<<*ppt<<endl; // 5
+
 }
-
 
 /*  
 A pointer is a variable that stores the memory address of another variable.

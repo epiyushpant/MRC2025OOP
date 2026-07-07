@@ -18,19 +18,30 @@ using namespace std;
 
 
 
-void printFibonacci(int n, int a = 0, int b = 1) {
-    if (n > 0) {
-        cout << a << " ";
-        cout << b << " " <<endl;// Print the first two Fibonacci numbers
-        printFibonacci(n - 1, b, a + b); // Recursive call with updated values
+// void printFibonacci(int n, int a = 0, int b = 1) {
+//     if (n > 0) {
+//         cout << a << " ";
+//         cout << b << " " <<endl;// Print the first two Fibonacci numbers
+//         printFibonacci(n - 1, b, a + b); // Recursive call with updated values
+//     }
+// }
+
+// int main() {
+//     int num = 5;
+//     // cout << "Fibonacci series up to " << num << " terms:\n";
+//     printFibonacci(num);
+//     return 0;
+// }
+
+
+void fibo(int n ,int a=0,int b=1){
+    if(n>0){
+        cout<<a<<"";
+        fibo(n-1,b,a+b); // 0 1
     }
 }
+int main(){
+    int n=5;
+    fibo(n);
 
-int main() {
-    int num = 5;
-    cout << "Fibonacci series up to " << num << " terms:\n";
-    printFibonacci(num);
-    return 0;
 }
-
-

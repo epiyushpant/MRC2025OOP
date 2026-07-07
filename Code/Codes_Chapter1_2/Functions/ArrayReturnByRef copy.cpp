@@ -26,3 +26,27 @@ int main() {
     CalcaulteArea(3.0f, true); // Circle
     return 0;
 }
+
+// #include<iostream>
+// using namespace std;
+// void Calcarea(float l, float b){
+//     float area = l*b;
+//     cout<<"The area of the rectangle is :"<<area<<endl;
+
+// }
+// void Calcarea(float side=10.9f){
+//     float area = side*side;
+//     cout<<"The area of the square is:"<<area<<endl;
+
+// }
+// void calcarea(float r){
+//     float area = 3.14*r*r;
+//     cout<<"The area of circle is"<<area;
+// }
+
+// int main(){
+//     Calcarea(2.5f, 2.5f);
+//     Calcarea();
+//     Calcarea(10.0f);
+//     return 0;
+// }
