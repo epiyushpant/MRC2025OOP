@@ -8,7 +8,7 @@ int main()
     unsigned long n,j;
     cout<<"Enter a number";
     cin>>n; //gets number from user
-    for(j=2;j<=n/2;j++) //divide every integer from 2 on up;
+    for(j=2;j<n/2;j++) //divide every integer from 2 on up;
     if (n%j==0)
     {
         cout<<"it is not prime; divisible by" <<j <<endl;
