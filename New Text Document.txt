@@ -18,3 +18,12 @@ C++>git commit -m "     "
 git push origin dipak
 
 
+
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/dipakthakuri07/OOP_With_Cpp.git
+git push -u origin main
+
+
