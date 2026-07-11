@@ -1,0 +1,20 @@
+ git push other branches
+git int 
+git add .
+git remote -v
+git remote remove origin
+git remote add origin https://github.com/dipakthakuri07/OOP_With_Cpp.git
+C++>git commit -m "      "
+git push origin main
+
+
+ git push other branches
+git int 
+git add .
+git remote -v
+git remote remove origin
+git remote add origin https://github.com/epiyushpant/OOPWithCPP.git
+C++>git commit -m "     "
+git push origin dipak
+
+
