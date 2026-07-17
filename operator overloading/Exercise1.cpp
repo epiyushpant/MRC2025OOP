@@ -19,7 +19,7 @@ class Float{
     void operator +();
     void operator -();
     void operator *();
-    void operator /();
+    //void operator /();
 };
 void Float:: operator +()
 {
@@ -33,10 +33,11 @@ void Float ::operator *()
 {
     f=f*f;
 }
-void Float :: operator /()
+/*void Float :: operator /()
 {
      f=f/f;
 }
+     */
 int main()
 {
     Float f1,f2,f3,f4;
@@ -50,7 +51,7 @@ int main()
     *f3;
     f3.display();
     f4.getdata(10);
-    /f4;
-    f4.display();
+    // /f4;
+    // f4.display();
     return 0;  
 }
