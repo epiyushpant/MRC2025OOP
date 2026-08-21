@@ -1,0 +1,57 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Teaching\\C\u002B\u002B\\Code\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Teaching\\C\u002B\u002B\\Code\\Codes_Chapter1_2\\AssignmentQues\\Factorial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Codes_Chapter1_2\\AssignmentQues\\Factorial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Teaching\\C\u002B\u002B\\Code\\Chapter 7\\Class Template\\ClassTemplate.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Chapter 7\\Class Template\\ClassTemplate.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Factorial.cpp",
+              "DocumentMoniker": "C:\\Teaching\\C\u002B\u002B\\Code\\Codes_Chapter1_2\\AssignmentQues\\Factorial.cpp",
+              "RelativeDocumentMoniker": "Codes_Chapter1_2\\AssignmentQues\\Factorial.cpp",
+              "ToolTip": "C:\\Teaching\\C\u002B\u002B\\Code\\Codes_Chapter1_2\\AssignmentQues\\Factorial.cpp",
+              "RelativeToolTip": "Codes_Chapter1_2\\AssignmentQues\\Factorial.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-09T03:39:48.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ClassTemplate.cpp",
+              "DocumentMoniker": "C:\\Teaching\\C\u002B\u002B\\Code\\Chapter 7\\Class Template\\ClassTemplate.cpp",
+              "RelativeDocumentMoniker": "Chapter 7\\Class Template\\ClassTemplate.cpp",
+              "ToolTip": "C:\\Teaching\\C\u002B\u002B\\Code\\Chapter 7\\Class Template\\ClassTemplate.cpp",
+              "RelativeToolTip": "Chapter 7\\Class Template\\ClassTemplate.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-09T03:39:38.811Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

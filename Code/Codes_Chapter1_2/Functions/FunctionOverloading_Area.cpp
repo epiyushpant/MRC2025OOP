@@ -16,17 +16,28 @@ void  area(double side, bool isSquare) {
     if (isSquare) {
        cout << "Area of square : " << side * side   << endl;
     }
+    else {
     cout << "Invalid input for square area calculation." << endl;
+    }
 }
+
+
+void  area(int side) {
+     cout << "Area of square : " << side * side   << endl;
+}
+
 
 int main() {
     double length = 5.0, width = 3.0;
     double radius = 2.0;
     double side = 4.0;
+    int l = 5; 
 
     area(length, width); // Calls rectangle area
     area (radius);
-    area(side, true); // Calls square area
+    //area(side, true); // Calls square area
+    area(l); 
+
 
     return 0;
 }

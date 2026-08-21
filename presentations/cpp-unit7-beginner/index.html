@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>C++ Unit 7 — Namespaces, Templates &amp; Exceptions (Beginner)</title>
+  <style>
+    :root {
+      --bg: #dce6f4;
+      --slide: #ffffff;
+      --ink: #1a2744;
+      --muted: #4b5b78;
+      --navy: #1e3a6e;
+      --teal: #0d7a7a;
+      --amber: #c47a12;
+      --red: #b42318;
+      --code-bg: #0d1117;
+      --code-fg: #e6edf3;
+      --shadow: 0 18px 44px rgba(30, 58, 110, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; height: 100%; overflow: hidden;
+      font-family: "Segoe UI", "Noto Sans", Arial, sans-serif;
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #c9d9f2 0%, transparent 55%),
+        var(--bg);
+      color: var(--ink);
+    }
+    .deck { height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 18px; background: var(--navy); color: #fff; font-size: 14px;
+    }
+    .topbar strong { letter-spacing: 0.02em; }
+    .stage {
+      flex: 1;
+      position: relative;
+      margin: 14px 20px;
+      min-height: 0;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: min(1180px, 100%);
+      height: 100%;
+      margin: 0 auto;
+      background: var(--slide);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 32px 44px 28px 52px;
+      overflow: auto;
+      display: none;
+      flex-direction: column;
+    }
+    .slide.active {
+      display: flex;
+      animation: in 0.28s ease;
+      z-index: 1;
+    }
+    .slide:not(.active) { display: none !important; }
+    @keyframes in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .slide::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
+      background: linear-gradient(180deg, var(--navy), var(--teal));
+    }
+    h1 { font-size: 40px; margin: 0 0 12px; color: var(--navy); line-height: 1.2; }
+    h2 { font-size: 30px; margin: 0 0 12px; color: var(--navy); }
+    h3 { font-size: 20px; margin: 14px 0 8px; color: var(--teal); }
+    p, li { font-size: 19px; line-height: 1.45; color: var(--ink); }
+    .muted { color: var(--muted); font-size: 17px; }
+    .badge {
+      display: inline-block; background: #dce8ff; color: var(--navy);
+      font-weight: 700; font-size: 13px; letter-spacing: 0.06em;
+      padding: 4px 10px; border-radius: 999px; text-transform: uppercase;
+    }
+    .simple {
+      background: #eefaf6; border-left: 6px solid var(--teal);
+      padding: 12px 16px; border-radius: 0 12px 12px 0; margin: 10px 0 14px;
+      font-size: 19px;
+    }
+    .simple b { color: var(--teal); }
+    .warn {
+      background: #fff6e8; border-left: 6px solid var(--amber);
+      padding: 12px 16px; border-radius: 0 12px 12px 0; margin: 12px 0;
+      font-size: 17px;
+    }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .card {
+      background: #f4f7fc; border-radius: 12px; padding: 16px 18px;
+      border: 1px solid #d7e0ee;
+    }
+    .card h3 { margin-top: 0; }
+    ul.clean { margin: 8px 0; padding-left: 22px; }
+    ul.clean li { margin: 7px 0; }
+    code {
+      font-family: Consolas, "Cascadia Code", "Courier New", monospace;
+      font-size: 0.88em;
+      background: #e8eef8;
+      color: #16325c;
+      padding: 1px 7px;
+      border-radius: 5px;
+    }
+    pre, .code-win pre { background: none; }
+    .kw { color: #ff7b72; font-weight: 600; }
+    .ty { color: #79c0ff; }
+    .st { color: #a5d6ff; }
+    .cm { color: #8bdc8b; font-style: italic; }
+    .fn { color: #d2a8ff; }
+    .pp { color: #ff7b72; }
+    .num { color: #79c0ff; }
+    .cls { color: #7ee787; }
+    .out { display: none; }
+    .title-slide.active { justify-content: center; }
+    .title-slide h1 { font-size: 46px; }
+    .big { font-size: 26px; }
+    table { width: 100%; border-collapse: collapse; font-size: 17px; }
+    th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid #d7e0ee; vertical-align: top; }
+    th { background: #eef3fb; color: var(--navy); }
+    table code { font-size: 14px; }
+    .footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 18px; font-size: 14px; color: var(--muted);
+    }
+    .nav { display: flex; gap: 8px; align-items: center; }
+    button {
+      background: var(--navy); color: #fff; border: 0; border-radius: 8px;
+      padding: 8px 14px; cursor: pointer; font-size: 14px;
+    }
+    button:hover { background: #152c55; }
+    .progress { height: 5px; background: #c9d6ea; }
+    .progress > span { display: block; height: 100%; background: var(--teal); width: 0%; }
+    .cols3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .cols4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+    .step { background: #f4f7fc; border-radius: 12px; padding: 16px; text-align: center; }
+    .step .n { font-size: 26px; font-weight: 800; color: var(--teal); }
+    kbd {
+      background: #e8eef6; border: 1px solid #b8c7de; border-bottom-width: 3px;
+      border-radius: 6px; padding: 1px 7px; font-size: 13px;
+    }
+
+    /* Editor-style code window */
+    .code-win {
+      background: var(--code-bg);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #21262d;
+      box-shadow: 0 10px 28px rgba(13, 17, 23, 0.28);
+      margin: 8px 0 12px;
+      min-height: 0;
+    }
+    .code-win .chrome {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 14px;
+      background: #161b22;
+      border-bottom: 1px solid #21262d;
+    }
+    .code-win .dots { display: flex; gap: 6px; }
+    .code-win .dots i {
+      width: 10px; height: 10px; border-radius: 50%; display: block;
+    }
+    .code-win .dots i:nth-child(1) { background: #ff5f56; }
+    .code-win .dots i:nth-child(2) { background: #ffbd2e; }
+    .code-win .dots i:nth-child(3) { background: #27c93f; }
+    .code-win .fname {
+      color: #c9d1d9; font-size: 13px;
+      font-family: Consolas, "Cascadia Code", monospace;
+    }
+    .code-win .lang {
+      margin-left: auto;
+      background: rgba(31, 111, 235, 0.22);
+      color: #79c0ff;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      padding: 3px 8px; border-radius: 6px;
+    }
+    .code-win pre.src {
+      margin: 0;
+      padding: 10px 0 12px;
+      overflow: auto;
+      font-size: 15px;
+      line-height: 1.52;
+      font-family: Consolas, "Cascadia Code", "Courier New", monospace;
+      color: #f0f6fc;
+      background: transparent;
+      border-radius: 0;
+      counter-reset: ln;
+    }
+    .code-win.compact pre.src { font-size: 14px; line-height: 1.48; }
+    .code-win pre.src .line {
+      display: block;
+      padding: 0 16px 0 0;
+      white-space: pre;
+      color: #f0f6fc;
+    }
+    .code-win pre.src .line::before {
+      counter-increment: ln;
+      content: counter(ln);
+      display: inline-block;
+      width: 42px;
+      padding-right: 12px;
+      margin-right: 12px;
+      text-align: right;
+      color: #8b949e;
+      border-right: 1px solid #30363d;
+      user-select: none;
+    }
+    .term {
+      background: #010409;
+      border-top: 1px solid #21262d;
+      padding: 10px 16px 12px;
+      font-family: Consolas, "Cascadia Code", monospace;
+      font-size: 14.5px;
+      color: #7ee787;
+    }
+    .term .prompt {
+      display: block;
+      color: #8b949e;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .term .prompt::before { content: "▸ "; color: #3fb950; }
+
+    @media print {
+      .topbar, .footer, .progress { display: none !important; }
+      .stage { position: static; margin: 0; height: auto; }
+      .slide, .slide.active, .slide:not(.active) {
+        display: flex !important;
+        position: relative;
+        inset: auto;
+        height: auto;
+        page-break-after: always;
+        box-shadow: none;
+        animation: none;
+        overflow: visible;
+      }
+      .code-win { break-inside: avoid; box-shadow: none; }
+    }
+    @media (max-width: 900px) {
+      .slide { padding: 24px 18px; }
+      .grid2, .cols3, .cols4 { grid-template-columns: 1fr; }
+      h1 { font-size: 28px; } h2 { font-size: 22px; }
+      p, li { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <div class="topbar">
+      <strong>C++ Programming — Unit 7 (Beginner)</strong>
+      <span>Namespaces · Templates · Exception Handling</span>
+    </div>
+    <div class="progress"><span id="bar"></span></div>
+    <div class="stage" id="stage">
+
+  <section class="slide title-slide active">
+    <span class="badge">Unit 7 · For beginners</span>
+    <h1>Namespaces, Templates &amp; Exception Handling</h1>
+    <p class="big">Simple ideas · Complete programs · Easy English</p>
+    <p class="muted">Every code slide is a full C++ program you can type, compile, and run.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">Roadmap</span>
+    <h2>What we will learn today</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Theory</h3>
+        <ul class="clean">
+          <li>7.1 Namespace — create, use, nest, alias</li>
+          <li>7.2 Idea of a template</li>
+          <li>7.3 Function template</li>
+          <li>7.4 Class template</li>
+          <li>7.5–7.7 Exception handling</li>
+          <li>Types of exceptions you can throw</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Practical works</h3>
+        <ul class="clean">
+          <li>Create and apply a namespace</li>
+          <li>Create and apply a function template</li>
+          <li>Create and apply a class template</li>
+          <li>try / catch / throw for basic and user-defined types</li>
+          <li>Menu of many exception types</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">How to read the slides</span>
+    <h2>Theory first, then a full program</h2>
+    <div class="cols3">
+      <div class="step">
+        <div class="n">1</div>
+        <p><b>Green box</b> = simple meaning in plain English</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <p><b>Dark window</b> = complete C++ code with line numbers</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <p><b>Green output</b> = what the program prints</p>
+      </div>
+    </div>
+    <div class="simple"><b>Rule for this deck:</b> a code slide is a whole program — <code>#include</code>, <code>main</code>, and <code>return 0</code>. You can copy it into a <code>.cpp</code> file and run it.</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.1 Namespace</span>
+    <h2>What is a namespace?</h2>
+    <div class="simple"><b>Simple meaning:</b> A namespace is a <b>named box</b> that holds functions, variables, and classes. It stops two things from having the same name and fighting.</div>
+    <p>Think of a school:</p>
+    <ul class="clean">
+      <li>Two students can both be named <b>Ram</b>.</li>
+      <li>We tell them apart by class: <b>Class10::Ram</b> and <b>Class12::Ram</b>.</li>
+      <li>A namespace is like the class name in front of Ram.</li>
+    </ul>
+    <p class="muted">In code, <code>std</code> is a famous namespace. That is why we write <code>std::cout</code>.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.1 Theory</span>
+    <h2>Why does C++ need namespaces?</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>The problem</h3>
+        <p>Your program and a library may both have a function called <code>print</code> or <code>add</code>. The compiler then says: “this name is already used.”</p>
+      </div>
+      <div class="card">
+        <h3>The fix</h3>
+        <p>Put each group of names in its own box. Then you must say <b>which box</b> with <code>::</code>.</p>
+      </div>
+    </div>
+    <ul class="clean">
+      <li>A namespace is <b>not</b> a class. You do not create objects of a namespace.</li>
+      <li>You can open the same namespace again later and add more names (it is like adding more things to the same box).</li>
+      <li><code>std</code> is the Standard Library box: <code>cout</code>, <code>cin</code>, <code>string</code>, <code>endl</code> live there.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.1 Complete program</span>
+    <h2>Two boxes, same function name — no clash</h2>
+<pre class="src" data-file="namespace_clash_fix.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+namespace MathA {
+    int add(int a, int b) {
+        return a + b;
+    }
+}
+
+namespace MathB {
+    int add(int a, int b) {
+        return a + 10;
+    }
+}
+
+int main() {
+    cout &lt;&lt; "MathA::add(2, 3) = " &lt;&lt; MathA::add(2, 3) &lt;&lt; endl;
+    cout &lt;&lt; "MathB::add(2, 3) = " &lt;&lt; MathB::add(2, 3) &lt;&lt; endl;
+    return 0;
+}</pre>
+    <div class="out">MathA::add(2, 3) = 5<br>MathB::add(2, 3) = 13</div>
+    <p>Without namespaces, two functions both named <code>add</code> would be an error.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.1 Creation</span>
+    <h2>How to create a namespace</h2>
+    <div class="simple"><b>Remember:</b> write <code>namespace Name { ... }</code>. Everything inside the braces belongs to that name.</div>
+<pre class="src" data-file="create_namespace.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+namespace MyMath {
+    int add(int a, int b) {
+        return a + b;
+    }
+    int square(int n) {
+        return n * n;
+    }
+}
+
+int main() {
+    cout &lt;&lt; "5 + 7 = " &lt;&lt; MyMath::add(5, 7) &lt;&lt; endl;
+    cout &lt;&lt; "4 squared = " &lt;&lt; MyMath::square(4) &lt;&lt; endl;
+    return 0;
+}</pre>
+    <div class="out">5 + 7 = 12<br>4 squared = 16</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.1 Usage · theory</span>
+    <h2>Three ways to use a namespace</h2>
+    <table>
+      <tr><th>Way</th><th>Code</th><th>When to use</th></tr>
+      <tr>
+        <td><b>::</b> (safest)</td>
+        <td><code>MyMath::add(2, 3);</code></td>
+        <td>You clearly show where the name comes from</td>
+      </tr>
+      <tr>
+        <td><b>using</b> one name</td>
+        <td><code>using MyMath::add;</code></td>
+        <td>You need only one function often</td>
+      </tr>
+      <tr>
+        <td><b>using namespace</b></td>
+        <td><code>using namespace MyMath;</code></td>
+        <td>Short programs / exams — but can hide name clashes</td>
+      </tr>
+    </table>
+    <div class="warn"><b>Tip:</b> Beginners often write <code>using namespace std;</code> at the top. It is OK for small lab programs. In big software, prefer <code>std::cout</code>.</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.1 Complete program</span>
+    <h2>All three ways in one program</h2>
+<pre class="src compact" data-file="three_ways.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+namespace MyMath {
+    int add(int a, int b) { return a + b; }
+    int square(int n) { return n * n; }
+}
+
+int main() {
+    // Way 1: ::  (always clear)
+    cout &lt;&lt; "Way 1  add    = " &lt;&lt; MyMath::add(2, 3) &lt;&lt; endl;
+
+    // Way 2: bring only one name into this function
+    using MyMath::add;
+    cout &lt;&lt; "Way 2  add    = " &lt;&lt; add(10, 20) &lt;&lt; endl;
+
+    // Way 3: bring the whole namespace
+    using namespace MyMath;
+    cout &lt;&lt; "Way 3  square = " &lt;&lt; square(6) &lt;&lt; endl;
+    return 0;
+}</pre>
+    <div class="out">Way 1  add    = 5<br>Way 2  add    = 30<br>Way 3  square = 36</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.1 Theory</span>
+    <h2>Nested namespace and alias</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Nested namespace</h3>
+        <p>A box inside a box. College can contain Exam. You write <code>College::Exam::passMark</code>.</p>
+      </div>
+      <div class="card">
+        <h3>Namespace alias</h3>
+        <p>A short nickname: <code>namespace CE = College::Exam;</code> then use <code>CE::passMark</code>.</p>
+      </div>
+    </div>
+    <ul class="clean">
+      <li>Nesting keeps related names together (College → Exam → Hostel).</li>
+      <li>An alias is only a shorter name. It does not create a new box.</li>
+      <li>Exam question: “What does <code>::</code> mean?” — <b>scope resolution</b>: “look inside this namespace.”</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.1 Complete program</span>
+    <h2>Nested namespace + alias</h2>
+<pre class="src compact" data-file="nested_namespace.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+namespace College {
+    namespace Exam {
+        int passMark = 40;
+        bool isPass(int m) {
+            return m &gt;= passMark;
+        }
+    }
+}
+
+int main() {
+    namespace CE = College::Exam;   // alias = short name
+    cout &lt;&lt; "Pass mark = " &lt;&lt; College::Exam::passMark &lt;&lt; endl;
+    cout &lt;&lt; "55 pass?  " &lt;&lt; CE::isPass(55) &lt;&lt; endl;
+    cout &lt;&lt; "30 pass?  " &lt;&lt; CE::isPass(30) &lt;&lt; endl;
+    return 0;
+}</pre>
+    <div class="out">Pass mark = 40<br>55 pass?  1<br>30 pass?  0</div>
+    <p class="muted"><code>1</code> means true, <code>0</code> means false.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">Practical 1</span>
+    <h2>Create and apply a namespace</h2>
+    <p class="muted">Full program — save as <code>01_namespace.cpp</code></p>
+<pre class="src compact" data-file="01_namespace.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+namespace College {
+    void welcome() { cout &lt;&lt; "Welcome to the college!" &lt;&lt; endl; }
+    int totalMarks(int a, int b) { return a + b; }
+}
+namespace Hostel {
+    void welcome() { cout &lt;&lt; "Welcome to the hostel!" &lt;&lt; endl; }
+}
+
+int main() {
+    College::welcome();
+    Hostel::welcome();
+    cout &lt;&lt; "Total marks = " &lt;&lt; College::totalMarks(40, 45) &lt;&lt; endl;
+    return 0;
+}</pre>
+    <div class="out">Welcome to the college!<br>Welcome to the hostel!<br>Total marks = 85</div>
+    <p>Same function name <code>welcome</code> — no error, because they live in different namespaces.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.2 Concept of Template</span>
+    <h2>What is a template?</h2>
+    <div class="simple"><b>Simple meaning:</b> A template is a <b>mould</b> (like a cookie cutter). You write the shape once. The compiler fills it with <code>int</code>, <code>float</code>, <code>char</code>, … when you need it.</div>
+    <p>Without a template you copy-paste the same logic three times. Only the <b>type</b> changes. A template says: “the type is a blank. Fill it later.”</p>
+    <div class="cols3">
+      <div class="step"><div class="n">1</div><p>Write the logic <b>once</b></p></div>
+      <div class="step"><div class="n">2</div><p>Call it with <code>int</code>, <code>float</code>, …</p></div>
+      <div class="step"><div class="n">3</div><p>Compiler makes the real functions</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.2 Theory</span>
+    <h2>Template vs overloading vs copy-paste</h2>
+    <table>
+      <tr><th>Style</th><th>What you write</th><th>Beginner view</th></tr>
+      <tr>
+        <td>Copy-paste</td>
+        <td><code>biggerInt</code>, <code>biggerFloat</code>, …</td>
+        <td>Works, but easy to forget one copy</td>
+      </tr>
+      <tr>
+        <td>Function overloading</td>
+        <td>Same name, different types, several functions</td>
+        <td>Still many functions to maintain</td>
+      </tr>
+      <tr>
+        <td>Template</td>
+        <td>One function, type is a blank <code>T</code></td>
+        <td>Best when the <b>logic is identical</b></td>
+      </tr>
+    </table>
+    <h3>Two kinds you must know</h3>
+    <ul class="clean">
+      <li><b>Function template</b> — a function that works for many types</li>
+      <li><b>Class template</b> — a class that can store many types</li>
+    </ul>
+    <p class="muted"><code>vector&lt;int&gt;</code> in C++ is a class template. The box is “vector”; the item type is “int”.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.3 Function Template</span>
+    <h2>Complete program: function template</h2>
+    <div class="simple"><b>Line to remember:</b> <code>template &lt;typename T&gt;</code> means “T is a placeholder for a type.” You may also write <code>template &lt;class T&gt;</code> — same meaning for beginners.</div>
+<pre class="src compact" data-file="function_template.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;typename T&gt;
+T getMax(T a, T b) {
+    if (a &gt; b) return a;
+    else return b;
+}
+
+int main() {
+    cout &lt;&lt; "max int    = " &lt;&lt; getMax(10, 20) &lt;&lt; endl;
+    cout &lt;&lt; "max double = " &lt;&lt; getMax(2.5, 1.8) &lt;&lt; endl;
+    cout &lt;&lt; "max char   = " &lt;&lt; getMax('A', 'Z') &lt;&lt; endl;
+    return 0;
+}</pre>
+    <div class="out">max int    = 20<br>max double = 2.5<br>max char   = Z</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.3 Theory</span>
+    <h2>How the compiler fills in T</h2>
+    <ul class="clean">
+      <li><code>getMax(10, 20)</code> → T becomes <code>int</code></li>
+      <li><code>getMax(2.5, 1.8)</code> → T becomes <code>double</code></li>
+      <li><code>getMax('A', 'Z')</code> → T becomes <code>char</code></li>
+    </ul>
+    <p>You do <b>not</b> write three functions. The compiler secretly makes them for you.</p>
+    <div class="warn"><b>Beginner rule:</b> both arguments should be the same type. <code>getMax(10, 2.5)</code> can confuse the compiler. Use an explicit type: <code>getMax&lt;double&gt;(10, 2.5)</code>.</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.3 Complete program</span>
+    <h2>Explicit type: <code>getMax&lt;double&gt;</code></h2>
+<pre class="src compact" data-file="explicit_type.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;typename T&gt;
+T getMax(T a, T b) {
+    if (a &gt; b) return a;
+    else return b;
+}
+
+int main() {
+    // 10 is int, 2.5 is double — tell the compiler: use double
+    cout &lt;&lt; getMax&lt;double&gt;(10, 2.5) &lt;&lt; endl;
+    cout &lt;&lt; getMax&lt;int&gt;(10, 3) &lt;&lt; endl;
+    return 0;
+}</pre>
+    <div class="out">10<br>10</div>
+    <p>Angle brackets after the name force the type. Useful in exams when mixed types appear.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">Practical 2</span>
+    <h2>Create and apply a function template</h2>
+    <p class="muted">Save as <code>02_function_template.cpp</code></p>
+<pre class="src compact" data-file="02_function_template.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;typename T&gt;
+T add(T a, T b) {
+    return a + b;
+}
+
+int main() {
+    cout &lt;&lt; "int    : " &lt;&lt; add(10, 20) &lt;&lt; endl;
+    cout &lt;&lt; "float  : " &lt;&lt; add(2.5f, 3.5f) &lt;&lt; endl;
+    cout &lt;&lt; "double : " &lt;&lt; add(1.11, 2.22) &lt;&lt; endl;
+    return 0;
+}</pre>
+    <div class="out">int    : 30<br>float  : 6<br>double : 3.33</div>
+    <p>One function. Three types. That is the power of a function template.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.4 Class Template</span>
+    <h2>Complete program: a typed box</h2>
+    <div class="simple"><b>Simple meaning:</b> A class template is a class where the <b>data type is a blank</b>. You must say the type in angle brackets: <code>Box&lt;int&gt;</code>.</div>
+<pre class="src compact" data-file="box_template.cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+template &lt;typename T&gt;
+class Box {
+    T value;
+public:
+    void set(T v) { value = v; }
+    T get() { return value; }
+};
+
+int main() {
+    Box&lt;int&gt; marks;
+    marks.set(85);
+    Box&lt;string&gt; city;
+    city.set("Kathmandu");
+    cout &lt;&lt; marks.get() &lt;&lt; endl;
+    cout &lt;&lt; city.get() &lt;&lt; endl;
+    return 0;
+}</pre>
+    <div class="out">85<br>Kathmandu</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.4 Theory</span>
+    <h2>Class template vs function template</h2>
+    <table>
+      <tr><th></th><th>Function template</th><th>Class template</th></tr>
+      <tr>
+        <td>What it is</td>
+        <td>One function, many types</td>
+        <td>One class, many types</td>
+      </tr>
+      <tr>
+        <td>How you use it</td>
+        <td><code>add(10, 20)</code> — type often guessed</td>
+        <td><code>Box&lt;int&gt; m;</code> — type is required</td>
+      </tr>
+      <tr>
+        <td>Stores data?</td>
+        <td>Usually no (just computes)</td>
+        <td>Yes — members use <code>T</code></td>
+      </tr>
+      <tr>
+        <td>Exam line</td>
+        <td><code>template &lt;typename T&gt;</code> above the function</td>
+        <td>Same line above the class</td>
+      </tr>
+    </table>
+    <div class="warn"><b>Common mistake:</b> writing <code>Box marks;</code>. It must be <code>Box&lt;int&gt; marks;</code>. <code>Box&lt;int&gt;</code> and <code>Box&lt;string&gt;</code> are like two different classes from one mould.</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">Practical 3</span>
+    <h2>Create and apply a class template</h2>
+    <p class="muted">Save as <code>03_class_template.cpp</code></p>
+<pre class="src compact" data-file="03_class_template.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;typename T&gt;
+class Calculator {
+    T a, b;
+public:
+    Calculator(T x, T y) { a = x; b = y; }
+    T add() { return a + b; }
+    T mul() { return a * b; }
+};
+
+int main() {
+    Calculator&lt;int&gt; i(4, 5);
+    Calculator&lt;float&gt; f(2.5f, 4.0f);
+    cout &lt;&lt; "int add   = " &lt;&lt; i.add() &lt;&lt; endl;
+    cout &lt;&lt; "float mul = " &lt;&lt; f.mul() &lt;&lt; endl;
+    return 0;
+}</pre>
+    <div class="out">int add   = 9<br>float mul = 10</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.5 Basics</span>
+    <h2>What is exception handling?</h2>
+    <div class="simple"><b>Simple meaning:</b> An <b>exception</b> is a problem that happens <b>while the program is running</b> (not while compiling). Exception handling means: “if something goes wrong, do not crash — catch it and show a clear message.”</div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Compile-time error</h3>
+        <p>Forgot a semicolon. The program will not even start.</p>
+      </div>
+      <div class="card">
+        <h3>Runtime exception</h3>
+        <p>User types 0 for divisor. Program is running, then boom — unless we catch it.</p>
+      </div>
+    </div>
+    <p>Examples: divide by zero, array index out of range, file not found, negative age.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.5 Theory</span>
+    <h2>Three kinds of problems (do not mix them)</h2>
+    <table>
+      <tr><th>Kind</th><th>When</th><th>Example</th><th>Fix with try/catch?</th></tr>
+      <tr>
+        <td>Syntax / compile error</td>
+        <td>Before the program runs</td>
+        <td>Missing <code>;</code></td>
+        <td>No — the compiler stops you</td>
+      </tr>
+      <tr>
+        <td>Logic error</td>
+        <td>Program runs, answer is wrong</td>
+        <td>Used <code>+</code> instead of <code>*</code></td>
+        <td>No — you must fix the formula</td>
+      </tr>
+      <tr>
+        <td>Exception (runtime)</td>
+        <td>Program runs, then a bad event</td>
+        <td>Divide by 0, bad index</td>
+        <td><b>Yes</b> — throw and catch</td>
+      </tr>
+    </table>
+    <p>Exception handling does not replace <code>if</code>. You still check the problem; <code>throw</code> is how you <b>jump</b> to the error handler.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.5 Why bother?</span>
+    <h2>Without handling vs with handling</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Without</h3>
+        <p>Program stops suddenly. User sees a crash or garbage.</p>
+      </div>
+      <div class="card">
+        <h3>With try / catch</h3>
+        <p>Program prints: “Cannot divide by zero” and can continue or exit politely.</p>
+      </div>
+    </div>
+    <p>You <b>separate</b> normal work from “what if it fails?” That keeps <code>main</code> easy to read.</p>
+    <ul class="clean">
+      <li><code>try</code> = do the normal job</li>
+      <li><code>throw</code> = “this went wrong, here is the error value”</li>
+      <li><code>catch</code> = “I know this kind of error, I will handle it”</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.6 Mechanism</span>
+    <h2>Three keywords: try, throw, catch</h2>
+    <div class="cols3">
+      <div class="step">
+        <div class="n">try</div>
+        <p>Put the risky code here. “Try this.”</p>
+      </div>
+      <div class="step">
+        <div class="n">throw</div>
+        <p>When a problem is found, <b>throw</b> a value (the error).</p>
+      </div>
+      <div class="step">
+        <div class="n">catch</div>
+        <p>Stand ready to <b>catch</b> that value and handle it.</p>
+      </div>
+    </div>
+    <div class="simple"><b>Picture:</b> You throw a ball (the error). Someone must catch it. If nobody catches it, the program ends.</div>
+    <p>The type you throw must match a catch: throw <code>int</code> → catch <code>int</code>. Throw a class → catch that class.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.6 Theory</span>
+    <h2>What happens, step by step</h2>
+    <div class="cols4">
+      <div class="step"><div class="n">1</div><p>Enter <code>try</code></p></div>
+      <div class="step"><div class="n">2</div><p>If OK, finish <code>try</code>, skip all <code>catch</code></p></div>
+      <div class="step"><div class="n">3</div><p>If bad, <code>throw</code> — rest of <code>try</code> is skipped</p></div>
+      <div class="step"><div class="n">4</div><p>Matching <code>catch</code> runs, then program continues after catch</p></div>
+    </div>
+    <ul class="clean">
+      <li>Code after <code>throw</code> inside the same <code>try</code> <b>never runs</b>.</li>
+      <li>After a catch finishes, execution continues <b>after the last catch</b> (not back into the try).</li>
+      <li>C++ tries catch blocks from <b>top to bottom</b> and uses the first match.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.6 Complete program</span>
+    <h2>Divide by zero (throw an int)</h2>
+<pre class="src compact" data-file="divide_by_zero.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a = 10, b = 0;
+    try {
+        if (b == 0)
+            throw b;
+        cout &lt;&lt; "Answer = " &lt;&lt; a / b &lt;&lt; endl;
+    }
+    catch (int x) {
+        cout &lt;&lt; "Cannot divide by " &lt;&lt; x &lt;&lt; endl;
+    }
+    cout &lt;&lt; "Program did not crash." &lt;&lt; endl;
+    return 0;
+}</pre>
+    <div class="out">Cannot divide by 0<br>Program did not crash.</div>
+    <p>We threw an <code>int</code>, so we caught an <code>int</code>. The last <code>cout</code> still runs.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Theory</span>
+    <h2>What types can you throw?</h2>
+    <p>In C++ you can throw almost any type. For exams, remember these groups:</p>
+    <table>
+      <tr><th>Group</th><th>Example throw</th><th>Matching catch</th></tr>
+      <tr><td>Integer</td><td><code>throw 0;</code> or <code>throw 404;</code></td><td><code>catch (int n)</code></td></tr>
+      <tr><td>Real number</td><td><code>throw 3.14;</code></td><td><code>catch (double d)</code></td></tr>
+      <tr><td>Character</td><td><code>throw 'E';</code></td><td><code>catch (char c)</code></td></tr>
+      <tr><td>Text (string)</td><td><code>throw string("No file");</code></td><td><code>catch (string s)</code></td></tr>
+      <tr><td>C-string</td><td><code>throw "Empty name";</code></td><td><code>catch (const char* m)</code></td></tr>
+      <tr><td>Standard class</td><td><code>throw runtime_error("fail");</code></td><td><code>catch (runtime_error&amp; e)</code></td></tr>
+      <tr><td>Your own class</td><td><code>throw NegativeAge("...");</code></td><td><code>catch (NegativeAge e)</code></td></tr>
+      <tr><td>Anything else</td><td><code>throw true;</code></td><td><code>catch (...)</code> last</td></tr>
+    </table>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Example · int</span>
+    <h2>Throw an error code (int)</h2>
+<pre class="src compact" data-file="throw_int.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int page = 404;
+    try {
+        if (page == 404)
+            throw page;
+        cout &lt;&lt; "Page found" &lt;&lt; endl;
+    }
+    catch (int code) {
+        cout &lt;&lt; "Error code: " &lt;&lt; code &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">Error code: 404</div>
+    <p>Throwing an <code>int</code> is the simplest “basic type” exception. Common in lab questions.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Example · double</span>
+    <h2>Throw a double (invalid temperature)</h2>
+<pre class="src compact" data-file="throw_double.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    double temp = -300.5;
+    try {
+        if (temp &lt; -273.15)
+            throw temp;
+        cout &lt;&lt; "Temperature is OK" &lt;&lt; endl;
+    }
+    catch (double t) {
+        cout &lt;&lt; "Impossible temperature: " &lt;&lt; t &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">Impossible temperature: -300.5</div>
+    <p>Use <code>double</code> (or <code>float</code>) when the error value itself is a real number.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Example · char</span>
+    <h2>Throw a char (invalid grade)</h2>
+<pre class="src compact" data-file="throw_char.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    char grade = 'X';
+    try {
+        if (grade != 'A' &amp;&amp; grade != 'B' &amp;&amp; grade != 'C')
+            throw grade;
+        cout &lt;&lt; "Grade accepted" &lt;&lt; endl;
+    }
+    catch (char g) {
+        cout &lt;&lt; "Invalid grade: " &lt;&lt; g &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">Invalid grade: X</div>
+    <p>A <code>char</code> exception is useful when the bad input is a single letter.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Example · string</span>
+    <h2>Throw a string (file not found)</h2>
+<pre class="src compact" data-file="throw_string.cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string fileName = "marks.txt";
+    bool fileExists = false;
+    try {
+        if (!fileExists)
+            throw string("Cannot open ") + fileName;
+        cout &lt;&lt; "File opened" &lt;&lt; endl;
+    }
+    catch (string msg) {
+        cout &lt;&lt; msg &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">Cannot open marks.txt</div>
+    <p>Need <code>#include &lt;string&gt;</code>. Catch <code>string</code>, not <code>int</code>.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Example · C-string</span>
+    <h2>Throw a C-string (<code>const char*</code>)</h2>
+<pre class="src compact" data-file="throw_cstring.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    const char* name = "";
+    try {
+        if (name[0] == '\0')
+            throw "Name cannot be empty";
+        cout &lt;&lt; "Hello " &lt;&lt; name &lt;&lt; endl;
+    }
+    catch (const char* msg) {
+        cout &lt;&lt; msg &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">Name cannot be empty</div>
+    <div class="warn"><b>Do not mix:</b> <code>throw "hello"</code> is <code>const char*</code>. <code>throw string("hello")</code> is <code>string</code>. They need different catch blocks.</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Complete program</span>
+    <h2>Many catch blocks — first match wins</h2>
+<pre class="src compact" data-file="multiple_catch.cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    int kind = 2;   // try 1, 2, or 3
+    try {
+        if (kind == 1) throw 404;
+        if (kind == 2) throw 3.14;
+        if (kind == 3) throw string("No file");
+        cout &lt;&lt; "No error" &lt;&lt; endl;
+    }
+    catch (int code) {
+        cout &lt;&lt; "int error: " &lt;&lt; code &lt;&lt; endl;
+    }
+    catch (double d) {
+        cout &lt;&lt; "double error: " &lt;&lt; d &lt;&lt; endl;
+    }
+    catch (string msg) {
+        cout &lt;&lt; "string error: " &lt;&lt; msg &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">double error: 3.14</div>
+    <p>Change <code>kind</code> to 1 or 3 to see the other catch blocks. Only one catch runs.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Catch all</span>
+    <h2>Safety net: <code>catch (...)</code></h2>
+<pre class="src compact" data-file="catch_all.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    try {
+        throw 'X';
+    }
+    catch (int n) {
+        cout &lt;&lt; "Caught int: " &lt;&lt; n &lt;&lt; endl;
+    }
+    catch (...) {
+        cout &lt;&lt; "Some other error" &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">Some other error</div>
+    <div class="warn"><b>Put <code>catch (...)</code> last.</b> If it is first, it swallows every error and the other catch blocks never run. Three dots mean “any type”.</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Theory</span>
+    <h2>Catch order rules (exam favourite)</h2>
+    <ul class="clean">
+      <li>Write <b>specific</b> types first: <code>int</code>, <code>string</code>, your class.</li>
+      <li>Write <b>parent</b> types later: if you catch <code>exception&amp;</code>, put it after specific ones like <code>invalid_argument</code>.</li>
+      <li>Write <code>catch (...)</code> <b>last</b> as a safety net.</li>
+      <li>A thrown value is matched by <b>type</b>, not by the message text.</li>
+      <li>If nothing matches and there is no <code>...</code>, the program <b>terminates</b>.</li>
+    </ul>
+    <div class="simple"><b>Memory trick:</b> catch like a funnel — narrow at the top, wide at the bottom.</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Theory</span>
+    <h2>Standard exception classes</h2>
+    <p>C++ already has exception classes in <code>&lt;stdexcept&gt;</code>. They store a message. You read it with <code>e.what()</code>.</p>
+    <table>
+      <tr><th>Class</th><th>Meaning (beginner)</th><th>Typical use</th></tr>
+      <tr><td><code>runtime_error</code></td><td>Something went wrong while running</td><td>General failure message</td></tr>
+      <tr><td><code>invalid_argument</code></td><td>A function got a bad value</td><td>Negative number, empty text</td></tr>
+      <tr><td><code>out_of_range</code></td><td>Index / position is outside limits</td><td>Array index 9 when size is 3</td></tr>
+      <tr><td><code>overflow_error</code></td><td>Number became too big</td><td>Rare in first-year labs</td></tr>
+    </table>
+    <p class="muted">Need <code>#include &lt;stdexcept&gt;</code>. Catch by reference: <code>catch (runtime_error&amp; e)</code>.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Example · runtime_error</span>
+    <h2>Standard exception: <code>runtime_error</code></h2>
+<pre class="src compact" data-file="runtime_error.cpp">#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+using namespace std;
+
+int main() {
+    int age = -5;
+    try {
+        if (age &lt; 0)
+            throw runtime_error("Age cannot be negative");
+        cout &lt;&lt; "Age = " &lt;&lt; age &lt;&lt; endl;
+    }
+    catch (runtime_error&amp; e) {
+        cout &lt;&lt; e.what() &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">Age cannot be negative</div>
+    <p><code>e.what()</code> returns the message you put inside <code>runtime_error("...")</code>.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Example · invalid_argument</span>
+    <h2>Standard exception: <code>invalid_argument</code></h2>
+<pre class="src compact" data-file="invalid_argument.cpp">#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+using namespace std;
+
+int main() {
+    double number = -9;
+    try {
+        if (number &lt; 0)
+            throw invalid_argument("Cannot take square root of a negative");
+        cout &lt;&lt; "Number is OK" &lt;&lt; endl;
+    }
+    catch (invalid_argument&amp; e) {
+        cout &lt;&lt; e.what() &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">Cannot take square root of a negative</div>
+    <p>Use this when the <b>input value itself</b> is not allowed.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Example · out_of_range</span>
+    <h2>Standard exception: <code>out_of_range</code></h2>
+<pre class="src compact" data-file="out_of_range.cpp">#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+using namespace std;
+
+int main() {
+    int marks[3] = {40, 55, 70};
+    int index = 5;
+    try {
+        if (index &lt; 0 || index &gt;= 3)
+            throw out_of_range("Index is outside the array");
+        cout &lt;&lt; "Mark = " &lt;&lt; marks[index] &lt;&lt; endl;
+    }
+    catch (out_of_range&amp; e) {
+        cout &lt;&lt; e.what() &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">Index is outside the array</div>
+    <p>Always check the index <b>before</b> you read <code>marks[index]</code>.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 User-defined type</span>
+    <h2>Throwing your own class — complete program</h2>
+    <div class="simple"><b>Simple meaning:</b> Make a small class that <b>describes the error</b>, then throw an object of that class.</div>
+<pre class="src compact" data-file="user_defined.cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class NegativeAge {
+public:
+    string message;
+    NegativeAge(string m) { message = m; }
+};
+
+int main() {
+    int age = -5;
+    try {
+        if (age &lt; 0)
+            throw NegativeAge("Age cannot be negative");
+        cout &lt;&lt; "Age = " &lt;&lt; age &lt;&lt; endl;
+    }
+    catch (NegativeAge e) {
+        cout &lt;&lt; e.message &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">Age cannot be negative</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Complete program</span>
+    <h2>Two user-defined exception classes</h2>
+<pre class="src compact" data-file="two_user_types.cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class NegativeAge {
+public:
+    string message;
+    NegativeAge(string m) { message = m; }
+};
+class FailMark {
+public:
+    int mark;
+    FailMark(int m) { mark = m; }
+};
+
+int main() {
+    int age = 20, mark = 25;
+    try {
+        if (age &lt; 0) throw NegativeAge("Age cannot be negative");
+        if (mark &lt; 40) throw FailMark(mark);
+        cout &lt;&lt; "Student is OK" &lt;&lt; endl;
+    }
+    catch (NegativeAge e) { cout &lt;&lt; e.message &lt;&lt; endl; }
+    catch (FailMark e) { cout &lt;&lt; "Fail mark: " &lt;&lt; e.mark &lt;&lt; endl; }
+    return 0;
+}</pre>
+    <div class="out">Fail mark: 25</div>
+    <p>Each class is a different type, so each needs its own <code>catch</code>.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">7.7 Complete program</span>
+    <h2>Nested try / catch (inner then outer)</h2>
+<pre class="src compact" data-file="nested_try.cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    try {
+        try {
+            throw 10;
+        }
+        catch (int n) {
+            cout &lt;&lt; "Inner catch: " &lt;&lt; n &lt;&lt; endl;
+            throw;   // rethrow the same exception
+        }
+    }
+    catch (int n) {
+        cout &lt;&lt; "Outer catch: " &lt;&lt; n &lt;&lt; endl;
+    }
+    return 0;
+}</pre>
+    <div class="out">Inner catch: 10<br>Outer catch: 10</div>
+    <p><code>throw;</code> with nothing after it means: “pass the same error to the next catch outside.”</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">Practical 4</span>
+    <h2>try / catch / throw — basic + user-defined</h2>
+    <p class="muted">Full program — save as <code>04_exception_handling.cpp</code> · type 1, 2, or another number</p>
+<pre class="src compact" data-file="04_exception_handling.cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class MyError {
+public:
+    string msg;
+    MyError(string m) { msg = m; }
+};
+
+int main() {
+    int choice;
+    cout &lt;&lt; "1 = int   2 = MyError class   other = none: ";
+    cin &gt;&gt; choice;
+    try {
+        if (choice == 1) throw 0;
+        if (choice == 2) throw MyError("Marks must be 0 to 100");
+        cout &lt;&lt; "No error. Program finished normally." &lt;&lt; endl;
+    }
+    catch (int n) { cout &lt;&lt; "Caught basic type (int): cannot use " &lt;&lt; n &lt;&lt; endl; }
+    catch (MyError e) { cout &lt;&lt; "Caught user-defined type: " &lt;&lt; e.msg &lt;&lt; endl; }
+    catch (...) { cout &lt;&lt; "Caught some other error." &lt;&lt; endl; }
+    return 0;
+}</pre>
+    <div class="out">You type 1 → Caught basic type (int): cannot use 0<br>You type 2 → Caught user-defined type: Marks must be 0 to 100<br>You type 9 → No error. Program finished normally.</div>
+  </section>
+
+  <section class="slide">
+    <span class="badge">Practical 5</span>
+    <h2>One menu, many exception types</h2>
+    <p class="muted">Save as <code>05_exception_types.cpp</code> — run it and try each number.</p>
+    <table>
+      <tr><th>Choice</th><th>Type thrown</th><th>What you are practising</th></tr>
+      <tr><td>1</td><td><code>int</code></td><td>Basic type / error code</td></tr>
+      <tr><td>2</td><td><code>double</code></td><td>Basic type / real number</td></tr>
+      <tr><td>3</td><td><code>char</code></td><td>Basic type / letter</td></tr>
+      <tr><td>4</td><td><code>string</code></td><td>Text message</td></tr>
+      <tr><td>5</td><td><code>const char*</code></td><td>C-string (quoted text)</td></tr>
+      <tr><td>6</td><td><code>runtime_error</code></td><td>Standard exception</td></tr>
+      <tr><td>7</td><td><code>invalid_argument</code></td><td>Bad input value</td></tr>
+      <tr><td>8</td><td><code>out_of_range</code></td><td>Bad index</td></tr>
+      <tr><td>9–10</td><td>Your own classes</td><td>User-defined types</td></tr>
+      <tr><td>11</td><td><code>bool</code></td><td><code>catch (...)</code> safety net</td></tr>
+    </table>
+    <p>The source file in <code>practical/</code> contains the complete menu program with every catch block.</p>
+  </section>
+
+  <section class="slide">
+    <span class="badge">Recap</span>
+    <h2>One table to remember</h2>
+    <table>
+      <tr><th>Topic</th><th>In one line</th><th>Main keywords</th></tr>
+      <tr><td>Namespace</td><td>Named box so names do not clash</td><td><code>namespace</code> · <code>::</code> · <code>using</code></td></tr>
+      <tr><td>Template idea</td><td>Write once, use for many types</td><td><code>template</code> · <code>T</code></td></tr>
+      <tr><td>Function template</td><td>A function with a type blank</td><td><code>template &lt;typename T&gt;</code></td></tr>
+      <tr><td>Class template</td><td>A class with a type blank</td><td><code>Box&lt;int&gt; marks;</code></td></tr>
+      <tr><td>Exception</td><td>Runtime problem we can catch</td><td><code>try</code> · <code>throw</code> · <code>catch</code></td></tr>
+      <tr><td>Catch-all</td><td>Any leftover type</td><td><code>catch (...)</code> last</td></tr>
+    </table>
+  </section>
+
+  <section class="slide">
+    <span class="badge">Exam tips</span>
+    <h2>Common beginner mistakes</h2>
+    <ul class="clean">
+      <li>Writing <code>MyMath.add()</code> like Java — in C++ it is <code>MyMath::add()</code> for namespaces.</li>
+      <li>Forgetting <code>template &lt;typename T&gt;</code> above the function or class.</li>
+      <li>Creating <code>Box marks;</code> — must be <code>Box&lt;int&gt; marks;</code>.</li>
+      <li>Throwing an <code>int</code> but catching a <code>string</code> — types must match.</li>
+      <li>Mixing <code>throw "hi"</code> with <code>catch (string s)</code> — that throw is <code>const char*</code>.</li>
+      <li>Putting code after <code>throw</code> inside the same <code>try</code> and expecting it to run — it will not.</li>
+      <li>Placing <code>catch (...)</code> first — it steals every exception.</li>
+      <li>Forgetting <code>#include &lt;string&gt;</code> or <code>&lt;stdexcept&gt;</code>.</li>
+    </ul>
+  </section>
+
+  <section class="slide">
+    <span class="badge">Lab</span>
+    <h2>How to compile the practical files</h2>
+    <p>Open a terminal in the <code>practical</code> folder, then:</p>
+<pre class="src" data-file="compile.sh">g++ 01_namespace.cpp -o 01_namespace
+01_namespace
+
+g++ 02_function_template.cpp -o 02_function_template
+02_function_template
+
+g++ 03_class_template.cpp -o 03_class_template
+03_class_template
+
+g++ 04_exception_handling.cpp -o 04_exception_handling
+04_exception_handling
+
+g++ 05_exception_types.cpp -o 05_exception_types
+05_exception_types</pre>
+    <p class="muted">On Windows you may run <code>.\01_namespace.exe</code>. If you use Turbo C++ / Dev-C++, just open the <code>.cpp</code> file and click Compile &amp; Run.</p>
+  </section>
+
+  <section class="slide title-slide">
+    <span class="badge">End of Unit 7</span>
+    <h1>You can now…</h1>
+    <ul class="clean">
+      <li>Create a namespace and call its functions with <code>::</code></li>
+      <li>Explain a template as a mould for many types</li>
+      <li>Write a function template and a class template</li>
+      <li>Handle errors with try, throw, and catch</li>
+      <li>Throw int, double, char, string, standard classes, and your own class</li>
+    </ul>
+    <p class="big">Questions?</p>
+  </section>
+
+    </div>
+    <div class="footer">
+      <span>Use <kbd>←</kbd> <kbd>→</kbd> or click Next · Press <kbd>P</kbd> to print / Save as PDF</span>
+      <div class="nav">
+        <button type="button" id="prev">Previous</button>
+        <span id="count"></span>
+        <button type="button" id="next">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function escapeHtml(s) {
+      return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    function highlightCpp(src) {
+      const keywords = new Set([
+        "using", "namespace", "template", "typename", "class", "struct",
+        "public", "private", "protected", "return", "if", "else", "try",
+        "catch", "throw", "int", "void", "bool", "double", "float", "char",
+        "const", "true", "false", "new", "delete", "virtual", "this"
+      ]);
+      const types = new Set(["string", "size_t", "runtime_error", "invalid_argument", "out_of_range", "exception"]);
+      let out = "";
+      let i = 0;
+      while (i < src.length) {
+        if (src[i] === "/" && src[i + 1] === "/") {
+          const j = src.indexOf("\n", i);
+          const end = j < 0 ? src.length : j;
+          out += '<span class="cm">' + escapeHtml(src.slice(i, end)) + "</span>";
+          i = end;
+          continue;
+        }
+        if (src[i] === "#") {
+          const j = src.indexOf("\n", i);
+          const end = j < 0 ? src.length : j;
+          out += '<span class="pp">' + escapeHtml(src.slice(i, end)) + "</span>";
+          i = end;
+          continue;
+        }
+        if (src[i] === '"') {
+          let j = i + 1;
+          while (j < src.length && src[j] !== "\n") {
+            if (src[j] === "\\") { j += 2; continue; }
+            if (src[j] === '"') { j++; break; }
+            j++;
+          }
+          out += '<span class="st">' + escapeHtml(src.slice(i, j)) + "</span>";
+          i = j;
+          continue;
+        }
+        if (src[i] === "'") {
+          let j = i + 1;
+          if (src[j] === "\\") j += 2;
+          else j++;
+          if (src[j] === "'") j++;
+          out += '<span class="st">' + escapeHtml(src.slice(i, j)) + "</span>";
+          i = j;
+          continue;
+        }
+        if (/[A-Za-z_]/.test(src[i])) {
+          let j = i + 1;
+          while (j < src.length && /[A-Za-z0-9_]/.test(src[j])) j++;
+          const word = src.slice(i, j);
+          let k = j;
+          while (src[k] === " ") k++;
+          if (keywords.has(word)) out += '<span class="kw">' + word + "</span>";
+          else if (types.has(word)) out += '<span class="ty">' + word + "</span>";
+          else if (src[k] === "(") out += '<span class="fn">' + word + "</span>";
+          else if (/^[A-Z]/.test(word)) out += '<span class="cls">' + word + "</span>";
+          else out += word;
+          i = j;
+          continue;
+        }
+        if (/[0-9]/.test(src[i])) {
+          let j = i;
+          while (j < src.length && /[0-9.]/.test(src[j])) j++;
+          out += '<span class="num">' + src.slice(i, j) + "</span>";
+          i = j;
+          continue;
+        }
+        out += escapeHtml(src[i]);
+        i++;
+      }
+      return out;
+    }
+    function enhanceCode() {
+      document.querySelectorAll("pre.src").forEach((pre) => {
+        const file = pre.getAttribute("data-file") || "program.cpp";
+        const raw = pre.textContent.replace(/^\n/, "").replace(/\n$/, "");
+        const highlighted = file.endsWith(".sh") ? escapeHtml(raw) : highlightCpp(raw);
+        const lines = highlighted.split("\n");
+        pre.innerHTML = lines
+          .map((l) => `<span class="line">${l === "" ? "&nbsp;" : l}</span>`)
+          .join("");
+
+        const win = document.createElement("div");
+        win.className = "code-win" + (pre.classList.contains("compact") ? " compact" : "");
+
+        const chrome = document.createElement("div");
+        chrome.className = "chrome";
+        const lang = file.endsWith(".sh") ? "Shell" : "C++";
+        chrome.innerHTML =
+          `<span class="dots"><i></i><i></i><i></i></span>` +
+          `<span class="fname">${file}</span>` +
+          `<span class="lang">${lang}</span>`;
+
+        pre.parentNode.insertBefore(win, pre);
+        win.appendChild(chrome);
+        win.appendChild(pre);
+
+        const next = win.nextElementSibling;
+        if (next && next.classList.contains("out")) {
+          const term = document.createElement("div");
+          term.className = "term";
+          term.innerHTML = `<span class="prompt">Output</span>${next.innerHTML}`;
+          next.remove();
+          win.appendChild(term);
+        }
+      });
+    }
+
+    enhanceCode();
+
+    const slides = [...document.querySelectorAll("#stage > .slide")];
+    let i = 0;
+    const count = document.getElementById("count");
+    const bar = document.getElementById("bar");
+    function show(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => s.classList.toggle("active", k === i));
+      count.textContent = (i + 1) + " / " + slides.length;
+      bar.style.width = ((i + 1) / slides.length * 100) + "%";
+    }
+    document.getElementById("next").onclick = () => show(i + 1);
+    document.getElementById("prev").onclick = () => show(i - 1);
+    document.getElementById("stage").onclick = (e) => {
+      if (e.target.closest("pre, a, button, .code-win")) return;
+      show(i + 1);
+    };
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); show(i + 1); }
+      if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); show(i - 1); }
+      if (e.key === "Home") show(0);
+      if (e.key === "End") show(slides.length - 1);
+      if (e.key === "p" || e.key === "P") window.print();
+    });
+    show(0);
+  </script>
+</body>
+</html>

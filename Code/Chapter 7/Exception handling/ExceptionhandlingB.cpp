@@ -35,7 +35,7 @@ int main() {
         if (num < 0) {
             throw "Negative number not allowed!";
         }
-    } catch (const char msg) {
+    } catch (const char* msg) {
         cout << "Exception caught: " << msg << endl;
     }
     return 0;

@@ -1,6 +1,5 @@
 // Friend function simple example 
 
-
 #include <iostream>
 using namespace std;    
 

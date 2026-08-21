@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std; 
-void swapByReference(int &a, int &b) {
+void swapByReference(int& a, int& b) {
     cout << "Before swap (Pass by Reference : Address): &a = " << &a << ", &b = " << &b << std::endl;
     int temp = a;
     a = b;

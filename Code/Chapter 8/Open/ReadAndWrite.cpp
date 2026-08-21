@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
     fstream file;
-    file.open("data.txt", ios::in | ios::out);
+    file.open("data.txt" , ios::in | ios::out);
 
     if (!file) {
         cout << "Error opening file!";

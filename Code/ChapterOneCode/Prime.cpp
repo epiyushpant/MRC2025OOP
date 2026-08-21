@@ -8,15 +8,17 @@ bool isPrime(int num) {
     return true;
 }
 
+
+using namespace std;
 int main() {
     int number;
-    std::cout << "Enter a number: ";
-    std::cin >> number;
+    cout << "Enter a number: ";
+    cin >> number;
 
     if (isPrime(number))
-        std::cout << number << " is a prime number.\n";
+        cout << number << " is a prime number.\n";
     else
-        std::cout << number << " is not a prime number.\n";
+        cout << number << " is not a prime number.\n";
 
     return 0;
 }
