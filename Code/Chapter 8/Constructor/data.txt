@@ -1,0 +1,4 @@
+Appending using fstream constructor.
+Appending using fstream constructor.
+Appending using fstream constructor.
+Appending using fstream constructor.

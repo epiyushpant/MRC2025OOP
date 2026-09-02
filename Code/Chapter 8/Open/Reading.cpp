@@ -4,10 +4,12 @@
 using namespace std;
 
 int main() {
+
+    //read mode is used to read the content of the file. If the file doesn't exist, 
+    //it will return an error.
+
     ifstream file;
     file.open("output.txt", ios::in);
-
-    //ifstream inFile("output.txt");
 
     if (file) {
         string line;
@@ -23,4 +25,7 @@ int main() {
     file.close();
     return 0;
 }
+
+
+//Stream = the channel through which data flows between your program and the file.
 

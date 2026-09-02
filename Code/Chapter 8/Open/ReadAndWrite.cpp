@@ -1,25 +1,36 @@
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include <string>
 using namespace std;
 
 int main() {
-    fstream file;
-    file.open("data.txt" , ios::in | ios::out);
+    ofstream outFile;
+    outFile.open("data.txt", ios::out);
 
-    if (!file) {
-        cout << "Error opening file!";
+    if (!outFile) {
+        cout << "Error opening file for writing!" << endl;
         return 1;
     }
 
-    file << "Adding new content.\n";
-    file.seekg(0);  // Move read pointer to beginning
+    outFile << "Hello C++\n";
+    outFile << "This is written in one file.\n";
+    outFile.close();
+
+    ifstream inFile;
+    inFile.open("data.txt", ios::in);
+
+    if (!inFile) {
+        cout << "Error opening file for reading!" << endl;
+        return 1;
+    }
 
     string line;
-    while (getline(file, line)) {
+    cout << "File contents:\n";
+    while (getline(inFile, line)) {
         cout << line << endl;
     }
 
-    file.close();
+    inFile.close();
+
     return 0;
 }

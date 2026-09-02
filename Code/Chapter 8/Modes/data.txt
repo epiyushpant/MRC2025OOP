@@ -1,0 +1,4 @@
+This line was added using append mode.
+This line was added using append mode.
+
+Added using ios::ateThis line was added using append mode.
