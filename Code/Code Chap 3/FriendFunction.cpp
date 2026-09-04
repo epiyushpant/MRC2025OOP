@@ -1,5 +1,5 @@
 // Friend function simple example 
-
+/*
 #include <iostream>
 using namespace std;    
 
@@ -30,3 +30,30 @@ int main() {
     return 0;
 }
 
+*/
+#include <iostream>
+using namespace std;
+
+class Bank {
+private:
+    int balance;
+
+public:
+    Bank(int b) {
+        balance = b;
+    }
+
+    friend void showBalance(Bank &b);
+};
+
+void showBalance(Bank &b) {
+    cout << "Balance: " << b.balance << endl;
+}
+
+int main() {
+    Bank account(5000);
+
+    showBalance(account);
+
+    return 0;
+}

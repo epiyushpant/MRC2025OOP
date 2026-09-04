@@ -1,4 +1,5 @@
 //Mehod overriding example in C++
+/*
 #include<iostream>
 using namespace std;
 class Base {
@@ -28,7 +29,7 @@ int main() {
                   // This is runtime polymorphism in action
 
 }
-
+*/
 // Output:
 // Derived class show function called.
 // This code demonstrates method overriding in C++ using virtual functions.
@@ -43,3 +44,27 @@ int main() {
 // Method overriding is a fundamental concept in object-oriented programming that allows for dynamic behavior and flexibility in code design.
 // It enables the derived class to change or extend the behavior of the base class method, providing a way to implement polymorphism.
 
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    void sound() {
+        cout << "Animal makes a sound" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void sound() {
+        cout << "Dog barks" << endl;
+    }
+};
+
+int main() {
+    Dog d;
+
+    d.sound();
+
+    return 0;
+}

@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 using namespace std;
 
@@ -93,6 +94,87 @@ int main() {
     // The following are errors:
    // cout << employee.city;  // Error: city is protected
     // cout << teacher.city;   // Error: city is private
+
+    return 0;
+}
+*/
+#include <iostream>
+using namespace std;
+
+// Parent class
+class Person {
+public:
+    string name = "Ram";
+    string city = "Kathmandu";
+
+protected:
+    int age = 20;
+
+private:
+    int salary = 50000;
+};
+
+
+// PUBLIC INHERITANCE
+class Student : public Person {
+public:
+    void show() {
+        cout << "Name: " << name << endl;   // OK
+        cout << "City: " << city << endl;   // OK
+        cout << "Age: " << age << endl;     // OK
+
+        // cout << salary;                 // ERROR
+    }
+};
+
+
+// PROTECTED INHERITANCE
+class Employee : protected Person {
+public:
+    void show() {
+        cout << "Name: " << name << endl;   // OK
+        cout << "City: " << city << endl;   // OK
+        cout << "Age: " << age << endl;     // OK
+
+        // cout << salary;                 // ERROR
+    }
+};
+
+
+// PRIVATE INHERITANCE
+class Teacher : private Person {
+public:
+    void show() {
+        cout << "Name: " << name << endl;   // OK
+        cout << "City: " << city << endl;   // OK
+        cout << "Age: " << age << endl;     // OK
+
+        // cout << salary;                 // ERROR
+    }
+};
+
+
+int main() {
+
+    Student student;
+    Employee employee;
+    Teacher teacher;
+
+    student.show();
+    employee.show();
+    teacher.show();
+
+    // Student → public inheritance
+    cout << student.name << endl;   // OK
+    cout << student.city << endl;   // OK
+
+    // Employee → protected inheritance
+    // cout << employee.name;        // ERROR
+    // cout << employee.city;        // ERROR
+
+    // Teacher → private inheritance
+    // cout << teacher.name;         // ERROR
+    // cout << teacher.city;         // ERROR
 
     return 0;
 }
